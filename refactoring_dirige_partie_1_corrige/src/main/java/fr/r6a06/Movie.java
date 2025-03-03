@@ -1,59 +1,47 @@
 package fr.r6a06;
 
 public class Movie {
-    public static final int  CHILDRENS = 2;
-    public static final int  REGULAR = 0;
-    public static final int  NEW_RELEASE = 1;
+    public static final int CHILDRENS = 2;
+    public static final int REGULAR = 0;
+    public static final int NEW_RELEASE = 1;
 
     private String _title;
-    private int _priceCode;
+    private Price _price;
 
     public Movie(String title, int priceCode) {
         _title = title;
-        _priceCode = priceCode;
+        setPriceCode(priceCode);
     }
-    public int getPriceCode() {
-        return _priceCode;
-    }
-    public void setPriceCode(int arg) {
-        _priceCode = arg;
-    }
-    public String getTitle (){
-        return _title;
-    };
 
-    public double getCharge(int dayRented) {
-        double result = 0.0;
-        switch (getPriceCode()) {
+    public int getPriceCode() {
+        return _price.getPriceCode();
+    }
+
+    public void setPriceCode(int priceCode) {
+        switch (priceCode) {
             case REGULAR:
-                result += 2;
-                if (dayRented > 2) {
-                    result += (dayRented - 2) * 1.5;
-                }
-                else{
-                    break;
-                }
+                _price = new RegularPrice();
+                break;
             case NEW_RELEASE:
-                result += dayRented * 3;
+                _price = new NewReleasePrice();
                 break;
             case CHILDRENS:
-                result += 1.5;
-                if (dayRented > 3) {
-                    result += (dayRented - 3) * 1.5;
-                }
-                else {
-                    break;
-                }
+                _price = new ChildrensPrice();
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid price code");
         }
-        return result;
     }
 
-    public int getFrequentRenterPoints(int dayRented) {
-        if ((getPriceCode() == NEW_RELEASE) && (dayRented > 1)) {
-            return 2;
-        }
-        else {
-            return 1;
-        }
+    public String getTitle() {
+        return _title;
+    }
+
+    public double getCharge(int daysRented) {
+        return _price.getCharge(daysRented);
+    }
+
+    public int getFrequentRenterPoints(int daysRented) {
+        return _price.getFrequentRenterPoints(daysRented);
     }
 }
