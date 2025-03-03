@@ -28,13 +28,11 @@ public class Movie {
             case CHILDRENS:
                 _price = new ChildrensPrice();
                 break;
-            default:
-                throw new IllegalArgumentException("Invalid price code");
         }
     }
 
     public String getTitle() {
-        return _title;
+        return this._title;
     }
 
     public double getCharge(int daysRented) {
