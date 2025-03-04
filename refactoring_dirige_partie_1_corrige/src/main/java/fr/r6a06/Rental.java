@@ -5,8 +5,8 @@ public class Rental {
     private int _daysRented;
 
     public Rental(Movie movie, int daysRented) {
-        _movie = movie;
-        _daysRented = daysRented;
+        this._movie = movie;
+        this._daysRented = daysRented;
     }
 
     public double getCharge() {
@@ -18,10 +18,10 @@ public class Rental {
     }
 
     public int getDaysRented() {
-        return _daysRented;
+        return this._daysRented;
     }
 
     public Movie getMovie() {
-        return _movie;
+        return this._movie;
     }
 }
